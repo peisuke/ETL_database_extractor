@@ -1,4 +1,5 @@
 #!/bin/bash
+cd output
 tar czvf ETL_info.tar.gz ./*.json
 tar czvf ETL1.tar.gz ./ETL1
 tar czvf ETL6.tar.gz ./ETL6

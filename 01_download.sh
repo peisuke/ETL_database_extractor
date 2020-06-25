@@ -16,3 +16,6 @@ unzip ETL8B.zip
 unzip ETL8G.zip
 unzip ETL9B.zip
 unzip ETL9G.zip
+
+wget ftp://ftp.unicode.org/Public/MAPPINGS/OBSOLETE/EASTASIA/JIS/JIS0201.TXT
+wget ftp://ftp.unicode.org/Public/MAPPINGS/OBSOLETE/EASTASIA/JIS/JIS0208.TXT

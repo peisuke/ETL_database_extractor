@@ -1,0 +1,5 @@
+mojimoji
+jaconv
+numpy
+tqdm
+pillow

@@ -26,24 +26,27 @@ def read_ETL8B(f):
 
 def read_file(filename):
     data = []
+    idx = 0
     with open(filename, 'rb') as f:
         while True:
+            if idx % 1000 == 0:
+                print(idx)
             img, label = read_ETL8B(f)
             if img is None:
                 return data
-            data.append({'image': img, 'label': label})
+            targetname = os.path.basename(filename) + '_{0:08d}.png'.format(idx)
+            fullpath = os.path.join(basedir, dirname, child_dir, targetname)
+            img.save(fullpath)
+            data.append({'filename': os.path.join(dirname, child_dir, targetname), 'label': label})
+            
+            idx += 1
             
 label_data = []
 for f in filenames:
     child_dir = os.path.basename(f)
-    os.makedirs(os.path.join(basedir, dirname, child_dir), exist_ok=True)
-    
+    os.makedirs(os.path.join(basedir, dirname, child_dir), exist_ok=True)    
     data = read_file(f)
-    for i, d in enumerate(tqdm.tqdm(data)):
-        filename = os.path.basename(f) + '_{0:08d}.png'.format(i)
-        fullpath = os.path.join(basedir, dirname, child_dir, filename)
-        d['image'].save(fullpath)
-        label_data.append({'filename': os.path.join(dirname, child_dir, filename), 'label': d['label']})
+    label_data.extend(data)
         
 with open(os.path.join(basedir, 'ETL8B.json'), 'w') as f:
     json.dump(label_data, f)
