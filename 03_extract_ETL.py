@@ -95,7 +95,7 @@ def read_ETL9G(f):
     iE = enhancer.enhance(64)
     return iE, r[1]
 
-def read_file(filename, decoder, conv_map=None):
+def read_file(filename, decoder, jis2unicode, conv_map=None):
     data = []
     idx = 0
     with open(filename, 'rb') as f:
@@ -113,10 +113,11 @@ def read_file(filename, decoder, conv_map=None):
                 else:
                     continue
             
-            targetname = os.path.basename(filename) + '_{0:08d}.png'.format(idx)
-            fullpath = os.path.join(basedir, dirname, child_dir, targetname)
-            img.save(fullpath)
-            data.append({'filename': os.path.join(dirname, child_dir, targetname), 'label': label})
+            if label in jis2unicode:
+                targetname = os.path.basename(filename) + '_{0:08d}.png'.format(idx)
+                fullpath = os.path.join(basedir, dirname, child_dir, targetname)
+                img.save(fullpath)
+                data.append({'filename': os.path.join(dirname, child_dir, targetname), 'label': jis2unicode[label]})
             
             idx += 1
             
@@ -192,12 +193,21 @@ if __name__ == '__main__':
         conv_map = {int(k): v for k, v in conv_map.items()}
     
     decoder = prop['decoder']
+    
+    jis2unicode = {}
+    f = open('JIS0208.TXT', 'r')
+    for row in f:
+        if row[0] != '#':
+            code = row.split("\t")[1]
+            char = row.split("\t")[2]
+            jis2unicode[int(code, 16)] = int(char, 16)
+    f.close()
         
     label_data = []
     for f in filenames:
         child_dir = os.path.basename(f)
         os.makedirs(os.path.join(basedir, dirname, child_dir), exist_ok=True)    
-        data = read_file(f, decoder, conv_map=conv_map)
+        data = read_file(f, decoder, jis2unicode, conv_map=conv_map)
         label_data.extend(data)
 
     with open(os.path.join(basedir, prop['output']), 'w') as f:
