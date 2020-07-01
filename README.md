@@ -19,13 +19,13 @@
 ```
 $ ./01_download.sh
 $ python 02_jis_mapper.py
-$ python 03_extract_ETL1.py
-$ python 03_extract_ETL6.py
-$ python 03_extract_ETL7.py
-$ python 03_extract_ETL8B.py
-$ python 03_extract_ETL8G.py
-$ python 03_extract_ETL9B.py
-$ python 03_extract_ETL9G.py
+$ python 03_extract_ETL.py --data ETL1
+$ python 03_extract_ETL.py --data ETL6
+$ python 03_extract_ETL.py --data ETL7
+$ python 03_extract_ETL.py --data ETL8B
+$ python 03_extract_ETL.py --data ETL8G
+$ python 03_extract_ETL.py --data ETL9B
+$ python 03_extract_ETL.py --data ETL9G
 $ ./04_archive.sh
 ```
 
