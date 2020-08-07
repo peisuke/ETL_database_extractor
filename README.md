@@ -16,6 +16,8 @@
 
 ### 実行
 
+#### 文字の抽出
+
 ```
 $ ./01_download.sh
 $ python 02_jis_mapper.py
@@ -26,10 +28,23 @@ $ python 03_extract_ETL.py --data ETL8B
 $ python 03_extract_ETL.py --data ETL8G
 $ python 03_extract_ETL.py --data ETL9B
 $ python 03_extract_ETL.py --data ETL9G
-$ ./04_archive.sh
+```
+
+#### 文字の抽出
+
+```
+$ python 04_denoise.py --data ETL1 --input output --output denoised
+$ python 04_denoise.py --data ETL6 --input output --output denoised
+$ python 04_denoise.py --data ETL7 --input output --output denoised
+$ python 04_denoise.py --data ETL8B --input output --output denoised
+$ python 04_denoise.py --data ETL8G --input output --output denoised
+$ python 04_denoise.py --data ETL9B --input output --output denoised
+$ python 04_denoise.py --data ETL9G --input output --output denoised
+$ ./05_archive.sh
 ```
 
 ### 実行結果
 
 - データの可視化サンプル
-  - https://github.com/peisuke/ETL_database_extractor/blob/master/05_show_data.ipynb
+  - https://github.com/peisuke/ETL_database_extractor/blob/master/06_show_data.ipynb
+  - https://github.com/peisuke/ETL_database_extractor/blob/master/07_show_data.ipynb
